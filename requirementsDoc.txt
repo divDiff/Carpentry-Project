@@ -1,0 +1,40 @@
+Carpentry app planning
+
+POJOs:
+
+Furniture - Abstract class containing basic fields, getters and setters.
+	- Price, build time, order date, material 
+Couch - Has length, couch type
+Chair - Has chair type
+Cabinet - height, and number of shelves.
+Table - height, table type
+
+Order - basic fields, getters and setters
+	- Will contain a list of Furniture, an order date, a start date, and a completion date.  
+	Other methods:
+		- getCompletionDate
+		- getTotalCost
+		- getItemizedCost (Returns a map of string to double price)
+		- getStartDate
+
+AppUser - basic fields, getters and setters
+	- Name, Order, phone number, email, permissions 
+	- permissions will determine what kind of user. 
+	
+Permissions - Carpenter, Customer, Admin. 
+
+Functionalities of web service:
+
+Carpenters and customers can add orders to Mongo db through UI. The orders persist in CurrentOrders table, then records move to CompletedOrders table
+after completion date. The completed orders persist for 21 days after processing.
+Carpenter can modify an order from the UI, which will cascade to the db. 
+Carpenter can cancel an order from the UI, which will cascade to the db. 
+Customers can remove items from or cancel an order from the UI if the current date is one full business day past the order date or less.
+Customers can add to their order at any time. 
+When a carpenter adds an order, it is added to a queue.
+Only two orders can be processed at a time. For example, if John orders a chair, Sue orders a table, then James orders a couch all on the same day,
+John and Sue's orders will be started first. After a current order is completed, the carpenter starts the next order in the queue. 
+Customers will see a different queue of orders from the carpenter and admin. They will see and have access to their order details, but will only 
+see that there are other orders in front of or behind them. 
+
+  
